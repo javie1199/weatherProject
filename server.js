@@ -23,11 +23,12 @@ function listening() {
 
 //stores data
 
-const projectData = [];
+// const projectData = [];
+let projectData = {};
 
 // POST method route
 app.post("/create", (req, res) => {
-  projectData.push(req.body);
+  projectData = req.body;
   console.log(projectData);
 });
 
