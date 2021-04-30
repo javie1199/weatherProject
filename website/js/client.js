@@ -32,13 +32,13 @@ function handleClick() {
   getWeather(searchUrl)
     .then((weatherData) => {
       save("/create", {
-        temp: weatherData.main.temp,
+        icon: weatherData.weather[0].icon,
         name: weatherData.name,
         general: weatherData.weather[0].main,
-        icon: weatherData.weather[0].icon,
+        temp: weatherData.main.temp,
         windspeed: weatherData.wind.speed,
-        feelings: document.querySelector("#feelings").value,
         date: date,
+        feelings: document.querySelector("#feelings").value,
       });
     })
     .then(() => getData("/all"));
@@ -70,30 +70,28 @@ const getData = async (url) => {
   try {
     let allData = await request.json();
 
-    console.log(allData[0].date);
     //Update the UI
     // as we are getting the cards all over again, we can clear the display off first
-    document.querySelector(".cards").innerHTML = "";
-    for (let i = 0; i < allData.length; i++) {
-      console.log(allData[i]);
-      let card = document.createElement("div");
-      card.classList.add("card");
-      // add the image ; this format : http://openweathermap.org/img/w/10d.png
-      // image code is accessible using : data.weather[0].icon
-      let image = document.createElement("img");
-      image.src = `http://openweathermap.org/img/wn/${allData[i].icon}@2x.png`;
-      //image.src = "http://openweathermap.org/img/w/04d.png";
-      // add the image to the div
-      card.appendChild(image);
+    // document.querySelector(".cards").innerHTML = "";
+    //  for (let i = 0; i < allData.length; i++) {
 
-      // just a test for text
-      let text = document.createElement("div");
-      text.innerHTML = ` <div class="place">${allData[i].name} </div>The weather is mainly : <span class="data">${allData[i].general} </span><br> The temp is <span class="data">${allData[i].temp}°c </span><br> The wind speed is <span class="data">${allData[i].windspeed}mph </span><br> Today, on <span class="data">${allData[i].date} </span> I felt <span class="data">${allData[i].feelings} </span>`;
-      card.appendChild(text);
-      // get parent and append it
-      let gridCard = document.querySelector(".cards");
-      gridCard.appendChild(card);
-    }
+    let card = document.createElement("div");
+    card.classList.add("card");
+    // add the image ; this format : http://openweathermap.org/img/w/10d.png
+    // image code is accessible using : data.weather[0].icon
+    let image = document.createElement("img");
+    image.src = `http://openweathermap.org/img/wn/${allData.icon}@2x.png`;
+    //image.src = "http://openweathermap.org/img/w/04d.png";
+    // add the image to the div
+    card.appendChild(image);
+
+  
+    let text = document.createElement("div");
+    text.innerHTML = ` <div class="place">${allData.name} </div>The weather is mainly : <span class="data">${allData.general} </span><br> The temp is <span class="data">${allData.temp}°c </span><br> The wind speed is <span class="data">${allData.windspeed}mph </span><br> Today, on <span class="data">${allData.date} </span> I felt <span class="data">${allData.feelings} </span>`;
+    card.appendChild(text);
+    // get parent and append it
+    let gridCard = document.querySelector(".cards");
+    gridCard.appendChild(card);
   } catch (error) {
     console.log(error);
   }
