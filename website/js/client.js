@@ -1,6 +1,6 @@
 // Personal API Key for OpenWeatherMap API -- insert APP ID before using
 let apiKey = "3db69fc1dc5bd060dc696500d051caef";
-let apiUrl = `http://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&units=metric`;
+let apiUrl = `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&units=metric`;
 
 let zip = document.getElementById("zip");
 let feelings = document.getElementById("feelings");
