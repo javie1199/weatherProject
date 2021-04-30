@@ -13,7 +13,7 @@ app.use(cors());
 const { RSA_NO_PADDING } = require("constants");
 
 // setup callback and server
-const port = 8000;
+const port = process.env.PORT || 3000;
 const server = app.listen(port, listening);
 //callback to make sure it works
 
